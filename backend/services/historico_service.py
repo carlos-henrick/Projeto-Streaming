@@ -37,7 +37,7 @@ class HistoricoService:
         # VALIDAR ID
         try:
             midia_id = int(midia_id)
-        except:
+        except (ValueError, TypeError):
             raise ValueError("ID da mídia inválido.")
 
         # VALIDAR TEMPO

@@ -63,7 +63,7 @@ def continuar_assistindo():
     ]), 200
 
 
-# LISTAR HISTÓRICO COMPLETO
+# LISTAR HISTÓRICO 
 
 @historico_bp.route("", methods=["GET"])
 @jwt_required()
