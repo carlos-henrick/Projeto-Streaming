@@ -65,7 +65,7 @@ class HistoricoService:
         if tempo > duracao_total:
             tempo = duracao_total
 
-        # FINALIZADO (90%)
+        # FINALIZADO 
         finalizado = tempo >= int(duracao_total * 0.90)
 
         # BUSCAR HISTÓRICO

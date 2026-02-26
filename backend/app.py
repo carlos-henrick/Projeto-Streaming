@@ -9,15 +9,8 @@ app.config.from_object(Config)
 
 CORS(
     app,
-    resources={
-        r"/auth/*": {"origins": "http://localhost:5173"},
-        r"/filmes/*": {"origins": "http://localhost:5173"},
-        r"/series/*": {"origins": "http://localhost:5173"},
-        r"/episodios/*": {"origins": "http://localhost:5173"},
-        r"/historico/*": {"origins": "http://localhost:5173"}, 
-    },
-    allow_headers=["Content-Type", "Authorization"],
-    supports_credentials=True
+    origins=["http://localhost:5173"],
+    allow_headers=["Content-Type", "Authorization"]
 )
 
 db.init_app(app)
@@ -36,6 +29,7 @@ from routes.series import series_bp
 from routes.episodios import episodios_bp
 from routes.historico import historico_bp
 from routes.player import player_bp  
+from routes.favorito_routes import favorito_bp
 
 app.register_blueprint(auth_bp, url_prefix="/auth")
 app.register_blueprint(filmes_bp, url_prefix="/filmes")
@@ -43,6 +37,7 @@ app.register_blueprint(series_bp, url_prefix="/series")
 app.register_blueprint(episodios_bp, url_prefix="/episodios")
 app.register_blueprint(historico_bp, url_prefix="/historico")  
 app.register_blueprint(player_bp, url_prefix="/player")
+app.register_blueprint(favorito_bp, url_prefix="/favoritos")
 
 if __name__ == "__main__":
     app.run(debug=True)

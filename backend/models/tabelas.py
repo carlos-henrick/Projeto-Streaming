@@ -75,22 +75,20 @@ class Episodio(db.Model):
     duracao = db.Column(db.Integer, nullable=False)
     nome_arquivo_video = db.Column(db.String(200), nullable=False)
 
-
-
-
-# FAVORITOS 
+# FAVORITOS
 
 class Favorito(db.Model):
     __tablename__ = "favoritos"
 
     id = db.Column(db.Integer, primary_key=True)
     usuario_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"), nullable=False)
-    
-    filme_id = db.Column(db.Integer, db.ForeignKey("filmes.id"), nullable=True)
-    serie_id = db.Column(db.Integer, db.ForeignKey("series.id"), nullable=True)
+    tipo_midia = db.Column(db.String(20), nullable=False) 
+    midia_id = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    criado_em = db.Column(db.DateTime, default=datetime.utcnow)
-
+    __table_args__ = (
+        db.UniqueConstraint("usuario_id", "tipo_midia", "midia_id"),
+    )
 
 
 # HISTÓRICO 

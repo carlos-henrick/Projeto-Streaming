@@ -6,7 +6,6 @@ from services.historico_service import HistoricoService
 historico_bp = Blueprint("historico", __name__)
 
 
-
 # BUSCAR PROGRESSO 
 
 @historico_bp.route("/progresso/<tipo>/<int:midia_id>", methods=["GET"])
