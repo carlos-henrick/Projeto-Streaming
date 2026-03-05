@@ -1,11 +1,15 @@
 from models.tabelas import Favorito, Filme, Serie
 from database.db_connection import db
+from sqlalchemy.exc import IntegrityError
 
 
 class FavoritoService:
 
     @staticmethod
     def adicionar(usuario_id, dados):
+        if not dados:
+            raise ValueError("Dados não enviados.")
+        
         tipo = dados.get("tipo_midia")
         midia_id = dados.get("midia_id")
 
@@ -25,24 +29,19 @@ class FavoritoService:
             raise ValueError("Mídia não encontrada.")
 
         # impedir duplicado
-        existente = Favorito.query.filter_by(
-            usuario_id=usuario_id,
-            tipo_midia=tipo,
-            midia_id=midia_id
-        ).first()
-
-        if existente:
-            raise ValueError("Já está nos favoritos.")
-
         favorito = Favorito(
             usuario_id=usuario_id,
             tipo_midia=tipo,
             midia_id=midia_id
         )
 
-        db.session.add(favorito)
-        db.session.commit()
-
+        try:
+            db.session.add(favorito)
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+            raise ValueError("Favorito já existe.")
+        
         return favorito
 
 
