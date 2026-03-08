@@ -29,7 +29,7 @@ from routes.series import series_bp
 from routes.episodios import episodios_bp
 from routes.historico import historico_bp
 from routes.player import player_bp  
-from routes.favorito_routes import favorito_bp
+from routes.favorito import favorito_bp
 
 app.register_blueprint(auth_bp, url_prefix="/auth")
 app.register_blueprint(filmes_bp, url_prefix="/filmes")

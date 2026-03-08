@@ -63,16 +63,20 @@ class FavoritoService:
     def listar(usuario_id):
         favoritos = Favorito.query.filter_by(usuario_id=usuario_id).all()
 
+        filmes_ids = [f.midia_id for f in favoritos if f.tipo_midia == "filme"]
+        series_ids = [f.midia_id for f in favoritos if f.tipo_midia == "serie"]
+
+        filmes = {f.id: f for f in Filme.query.filter(Filme.id.in_(filmes_ids)).all()} if filmes_ids else {}
+        series = {s.id: s for s in Serie.query.filter(Serie.id.in_(series_ids)).all()} if series_ids else {}
+
         resultado = []
 
         for fav in favoritos:
-            if fav.tipo_midia == "filme":
-                midia = Filme.query.get(fav.midia_id)
-            else:
-                midia = Serie.query.get(fav.midia_id)
+            midia = filmes.get(fav.midia_id) if fav.tipo_midia == "filme" else series.get(fav.midia_id)
 
             if not midia:
                 continue
+
 
             resultado.append({
                 "id": fav.id,

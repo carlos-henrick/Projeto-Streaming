@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from services.favorito_service import FavoritoService
+from utils.http import erro_resposta
 
 favorito_bp = Blueprint("favoritos", __name__, url_prefix="/favoritos")
 
@@ -14,7 +15,7 @@ def adicionar():
         favorito = FavoritoService.adicionar(usuario_id, dados)
         return jsonify({"msg": "Adicionado aos favoritos"}), 201
     except ValueError as e:
-        return jsonify({"erro": str(e)}), 400
+        return erro_resposta(str(e), 400)
 
 
 
@@ -27,7 +28,7 @@ def remover(favorito_id):
         FavoritoService.remover(usuario_id, favorito_id)
         return jsonify({"msg": "Removido dos favoritos"})
     except ValueError as e:
-        return jsonify({"erro": str(e)}), 404
+        return erro_resposta(str(e), 404)
 
 
 @favorito_bp.route("", methods=["GET"])
