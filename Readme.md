@@ -1,9 +1,11 @@
-# 🎬 Media Streaming API (Backend)
+# Media Streaming API (Backend)
 
+Backend de uma plataforma de streaming inspirado em serviços como Netflix.  
+A API permite gerenciamento de usuários, catálogo de mídias e reprodução de vídeos com autenticação JWT.
 
-Projeto backend simulando uma plataforma de streaming 
+---
 
-# 🚀 Tecnologias
+# Tecnologias
 
 - Python 3.14+
 - Flask
@@ -11,57 +13,56 @@ Projeto backend simulando uma plataforma de streaming
 - Flask-SQLAlchemy
 - SQLAlchemy
 - Flask-CORS
-- SQLite 
+- SQLite
 - python-dotenv
 
+---
 
-# 📦 Pré-requisitos
+# Pré-requisitos
 
-## 🔹 1. Instalar Python
-Baixe em:  
+Antes de iniciar, instale:
+
+- Python 3.14 ou superior
+
+Download:  
 https://www.python.org/downloads/
 
-Durante a instalação marque:  
-✅ Add Python to PATH  
+Durante a instalação marque:
 
-Verifique:
+Add Python to PATH
 
-  bash
+Verifique a instalação:
+
+```
 python --version
+```
+Instalação
 
-# 🧪 Criar Ambiente Virtual (venv)
+Clone o projeto e instale as dependências.
 
+1. Criar ambiente virtual
+```
 python -m venv venv
+```
+3. Ativar ambiente virtual
+```
 venv\Scripts\activate
-
+```
+3. Instalar dependências
+```
 pip install -r requirements.txt
+```
+ Configuração
 
-# ⚙️ Criar arquivo .env
+Crie um arquivo .env na pasta backend.
 
-Crie um arquivo .env na pasta backend:
-
+Exemplo:
+```
 SECRET_KEY=super_secret_key
 DATABASE_URL=sqlite:///database.db
+```
+ Testes da API
 
-# 🔐 Autenticação
+Para testar os endpoints recomenda-se utilizar:
 
-A API utiliza JWT Token.
-
-Fluxo:
-    1. Registrar usuário
-    2. Fazer login
-    3. usar token nas rotas protegidas
-
-# 📌 Funcionalidades
-
- - Registro e Login de usuários
- - CRUD de Filmes
- - CRUD de Séries
- - CRUD de Episódios
- - Histórico de progresso 
- - Favoritos (em progresso)
-
-# 🧪 Testes
-
-Recomendado usar:
  - Postman
