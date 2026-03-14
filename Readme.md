@@ -56,10 +56,12 @@ pip install -r requirements.txt
 
 Crie um arquivo .env na pasta backend.
 
+No arquivo `.env`, ajuste o caminho do banco SQLite conforme seu sistema:
+
 Exemplo:
 ```
 SECRET_KEY=super_secret_key
-DATABASE_URL=sqlite:///database.db
+DATABASE_URL=sqlite:///C:/caminho/para/seu/projeto/backend/database.db
 ```
  Testes da API
 
