@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from database.db_connection import db
 from models.tabelas import Usuario
+from utils.http import erro_resposta
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token
 import re   
@@ -31,26 +32,25 @@ def validar_senha(senha):
 
 @auth_bp.route('/register', methods=['POST'])
 def register():
-    dados = request.get_json() or {}             
+    dados = request.get_json(silent=True) or {}            
 
     nome = dados.get('nome', '').strip()
     email = dados.get('email', '').strip().lower()
     senha = dados.get('senha', '').strip()
 
     if not nome or not email or not senha:
-        return jsonify({"error": "Nome, email e senha são obrigatórios."}), 400
+        return erro_resposta("Nome, email e senha são obrigatórios.", 400) 
 
 
     if not validar_email(email):
-        return jsonify({"error": "Email inválido."}), 400
+        return erro_resposta("Email inválido.", 400)
 
     if not validar_senha(senha):
-        return jsonify({
-            "error": "Requisitos: mínimo 8 caracteres, letra maiúscula, número e símbolo."
-        }), 400
+        return erro_resposta("Requisitos: mínimo 8 caracteres, letra maiúscula, número e símbolo.", 400)
+
 
     if Usuario.query.filter_by(email=email).first():
-        return jsonify({"error": "Email já cadastrado."}), 400
+        return erro_resposta("Email já cadastrado.", 400)
 
    
     usuario = Usuario(
@@ -70,18 +70,18 @@ def register():
 
 @auth_bp.route("/login", methods=["POST"])
 def login():
-    data = request.get_json() or {}
+    dados = request.get_json(silent=True) or {}
 
-    email = data.get("email", "").strip().lower()
-    senha = data.get("senha", "").strip()
+    email = dados.get("email", "").strip().lower()
+    senha = dados.get("senha", "").strip()
 
     if not email or not senha:
-        return jsonify({"error": "Email e senha são obrigatórios."}), 400
+        return erro_resposta("Email e senha são obrigatórios.", 400)
 
     usuario = Usuario.query.filter_by(email=email).first()
 
     if not usuario or not check_password_hash(usuario.senha, senha):
-        return jsonify({"error": "Credenciais inválidas."}), 401
+        return erro_resposta("Credenciais inválidas.", 401)
 
     access_token = create_access_token(
         identity=str(usuario.id),

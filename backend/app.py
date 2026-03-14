@@ -10,10 +10,13 @@ app.config.from_object(Config)
 CORS(
     app,
     origins=["http://localhost:5173"],
-    allow_headers=["Content-Type", "Authorization"]
+    supports_credentials=True,
+    allow_headers=["Content-Type", "Authorization"],
+    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 )
 
 db.init_app(app)
+
 
 app.config["JWT_SECRET_KEY"] = app.config["SECRET_KEY"]
 jwt = JWTManager(app)
