@@ -107,32 +107,3 @@ class Historico(db.Model):
     )
 
 
-
-
-# PLANOS
-
-class Plano(db.Model):
-    __tablename__ = "planos"
-
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(50), nullable=False)
-    resolucao_maxima = db.Column(db.String(10))
-    preco = db.Column(db.Float)
-
-    assinaturas = db.relationship("Assinatura", backref="plano", lazy=True)
-
-
-
-# ASSINATURAS
-
-class Assinatura(db.Model):
-    __tablename__ = "assinaturas"
-
-    id = db.Column(db.Integer, primary_key=True)
-    usuario_id = db.Column(db.Integer, db.ForeignKey("usuarios.id"), nullable=False)
-    plano_id = db.Column(db.Integer, db.ForeignKey("planos.id"), nullable=False)
-
-    inicio = db.Column(db.DateTime, default=datetime.utcnow)
-    validade = db.Column(db.DateTime)
-    ativa = db.Column(db.Boolean, default=True)
-
