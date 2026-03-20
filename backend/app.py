@@ -7,6 +7,10 @@ from database.db_connection import db
 app = Flask(__name__)
 app.config.from_object(Config)
 
+@app.route("/")
+def home():
+    return {"msg": "Por enquanto está funcionando kkk"}
+
 CORS(
     app,
     origins=["http://localhost:5173"],

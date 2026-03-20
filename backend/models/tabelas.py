@@ -36,7 +36,6 @@ class Filme(db.Model):
     capa = db.Column(db.String(200), nullable=False)
     nome_arquivo_video = db.Column(db.String(200), nullable=False)
 
-    favoritos = db.relationship("Favorito", backref="filme", cascade="all, delete-orphan", lazy=True)
 
 
 
@@ -53,7 +52,6 @@ class Serie(db.Model):
     capa = db.Column(db.String(200), nullable=False)
 
     episodios = db.relationship("Episodio", backref="serie", cascade="all, delete-orphan", lazy=True)
-    favoritos = db.relationship("Favorito", backref="serie", cascade="all, delete-orphan", lazy=True)
 
 
 
