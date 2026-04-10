@@ -37,8 +37,7 @@ def listar_series():
         for s in series
     ]), 200
 
-
-# ADICIONAR SÉRIE (TODOS OBRIGATÓRIOS)
+# ADICIONAR SÉRIE 
 @series_bp.route("/adicionar", methods=["POST"])
 @jwt_required()
 @admin_required
@@ -86,7 +85,7 @@ def adicionar_serie():
     return jsonify({"id": serie.id}), 201
 
 
-# EDITAR SÉRIE (PARCIAL)
+# EDITAR SÉRIE
 @series_bp.route("/editar/<int:serie_id>", methods=["PUT"])
 @jwt_required()
 @admin_required
